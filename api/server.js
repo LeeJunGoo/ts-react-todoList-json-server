@@ -6,8 +6,8 @@ const middlewares = jsonServer.defaults();
 const router = jsonServer.router('db.json');
 const port = 4000;
 
-console.log('router', process.env.SERVER_PORT);
-console.log('🚀 ~ port:', process.env.DB_ROUTER);
+console.log('router', process.env.SERVER_PORT || 4000);
+console.log('🚀 ~ port:', process.env.DB_ROUTER || 'db.json');
 
 server.use(middlewares);
 
