@@ -1,31 +1,25 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
+require('dotenv').config();
+const jsonServer = require('json-server');
 
-const server = jsonServer.create()
+const server = jsonServer.create();
+const middlewares = jsonServer.defaults();
+const router = jsonServer.router('db.json');
+const port = 4000;
 
-// Uncomment to allow write operations
-// const fs = require('fs')
-// const path = require('path')
-// const filePath = path.join('db.json')
-// const data = fs.readFileSync(filePath, "utf-8");
-// const db = JSON.parse(data);
-// const router = jsonServer.router(db)
+console.log('router', process.env.SERVER_PORT);
+console.log('🚀 ~ port:', process.env.DB_ROUTER);
 
-// Comment out to allow write operations
-const router = jsonServer.router('db.json')
+server.use(middlewares);
 
-const middlewares = jsonServer.defaults()
+server.use(
+  jsonServer.rewriter({
+    '/api/*': '/$1', // /api/posts → /posts로 재작성(mapping)
+    '/blog/:resource/:id/show': '/:resource/:id',
+  })
+);
+server.use(router);
+server.listen(port, () => {
+  console.log('JSON Server is running');
+});
 
-server.use(middlewares)
-// Add this before server.use(router)
-server.use(jsonServer.rewriter({
-    '/api/*': '/$1',
-    '/blog/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
-server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
-
-// Export the Server API
-module.exports = server
+module.exports = server;

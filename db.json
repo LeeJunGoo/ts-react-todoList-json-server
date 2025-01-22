@@ -1,9 +1,10 @@
 {
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+    { "id": 1, "title": "Hello World" },
+    { "id": 2, "title": "Another Post" }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+    { "id": 1, "body": "Great post!" },
+    { "id": 2, "body": "Thanks for sharing!" }
+  ]
 }
